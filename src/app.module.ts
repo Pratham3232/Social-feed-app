@@ -20,11 +20,17 @@ import { PostModule } from './core/posts/posts.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'password',
-      database: 'social_feed',
+      host: process.env.PGHOST, // Use Railway's PGHOST, not DATABASE_URL
+      port: parseInt(process.env.PGPORT|| '5432'),
+      username: process.env.PGUSER,
+      password: process.env.PGPASSWORD,
+      database: process.env.PGDATABASE,
+      ssl: false, // Required for Railway's public network:cite[4]:cite[6]
+      extra: {
+        ssl: {
+          rejectUnauthorized: false, // Required for Railway’s SSL:cite[4]
+        },
+      },
       entities: [User, Like, Post, Follow, Block, Activity], // Add all your entities here
       synchronize: true, // Automatically sync database schema (for development only)
     }),
