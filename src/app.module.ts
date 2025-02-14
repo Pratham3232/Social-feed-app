@@ -25,7 +25,7 @@ import { PostModule } from './core/posts/posts.module';
       username: process.env.PGUSER,
       password: process.env.PGPASSWORD,
       database: process.env.PGDATABASE,
-      ssl: false, // Required for Railway's public network:cite[4]:cite[6]
+      ssl: true, // Required for Railway's public network:cite[4]:cite[6]
       extra: {
         ssl: {
           rejectUnauthorized: false, // Required for Railway’s SSL:cite[4]
