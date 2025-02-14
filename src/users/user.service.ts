@@ -23,10 +23,10 @@ export class UserService {
 
     const user = await this.usersRepository.findOne({ where: { id: body.UserId } });
 
-    const blockedUsers = await this.blockRepository.find({ where: { blocker: body.UserId } });
-    const blockedByUsers = await this.blockRepository.find({ where: { blocked: body.UserId } });
+    // const blockedUsers = await this.blockRepository.find({ where: { blocker: body.UserId } });
+    // const blockedByUsers = await this.blockRepository.find({ where: { blocked: body.UserId } });
 
-    console.log(blockedUsers, blockedByUsers);
+    // console.log(blockedUsers, blockedByUsers);
 
     // const blockedUser = await ;
     
