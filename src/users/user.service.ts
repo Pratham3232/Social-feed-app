@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../social feed/user.entity';
@@ -19,16 +19,39 @@ export class UserService {
 
   async getContentForUser(body): Promise<any> {
     const content = await this.postRepository.find( {relations:['user', 'likes']});
-    console.log(content);
 
     const user = await this.usersRepository.findOne({ where: { id: body.UserId } });
 
-    // const blockedUsers = await this.blockRepository.find({ where: { blocker: body.UserId } });
-    // const blockedByUsers = await this.blockRepository.find({ where: { blocked: body.UserId } });
+    if (!user) {
+      throw new UnauthorizedException('Invalid user id');
+    } 
 
-    // console.log(blockedUsers, blockedByUsers);
+    const blockedUsers = await this.blockRepository.find({ where: { blocker: user }, relations: ['blocked'] });
+    const blockedByUsers = await this.blockRepository.find({ where: { blocked: user }, relations: ['blocker'] });
 
-    // const blockedUser = await ;
-    
+    const blockedUserIds = new Set();
+
+
+    blockedUsers.forEach(blockedUser => {
+      blockedUserIds.add(blockedUser.blocked.id);
+    });
+
+    blockedByUsers.forEach(blockedByUser => {
+      blockedUserIds.add(blockedByUser.blocker.id);
+    });
+
+    var filteredContent = content.filter(post => {
+      return !blockedUserIds.has(post.user.id);
+    });
+
+    var finalContentData = filteredContent.map( post => {
+      return {
+        postId: post.id,
+        content: post.content,
+        likes: post.likes.length
+      }
+    })
+
+    return finalContentData;
   }
 }
