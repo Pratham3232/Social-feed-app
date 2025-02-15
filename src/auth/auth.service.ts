@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { LoginDto, SignUpDto } from './auth.dto';
+import { LoginDto, SignUpDto, UserRole } from './auth.dto';
 import { User } from 'src/social feed/user.entity';
 
 @Injectable()
@@ -14,17 +14,24 @@ export class AuthService {
   async signUp(signUpDto: SignUpDto): Promise<any> {
     const { username, password } = signUpDto;
 
-    // Check if user exists
-    const existingUser = await this.usersRepository.findOne({ where: { username } });
-    if (existingUser) {
-      throw new ConflictException('username already exists');
+    // Create new user
+
+    var role = UserRole.USER;
+
+    if(signUpDto.role && signUpDto.role !== UserRole.USER) {
+        role = (signUpDto.role === UserRole.ADMIN ? UserRole.ADMIN : UserRole.OWNER);
     }
 
-    // Create new user
-    
+    // Check if user exists
+    const existingUser = await this.usersRepository.findOne({ where: { username: username} });
+    if (existingUser) {
+      throw new ConflictException('Username already exists select different username');
+    }
+
     const user = this.usersRepository.create({
       username,
       password,
+      role
     });
 
     const savedUser = await this.usersRepository.save(user);
@@ -41,7 +48,7 @@ export class AuthService {
     // Find user
     const user = await this.usersRepository.findOne({ where: { username } });
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Invalid username');
     }
 
     if (user.password !== password) {
