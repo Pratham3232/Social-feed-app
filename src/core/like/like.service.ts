@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Like } from '../../social feed/like.entity';
 import { User } from '../../social feed/user.entity';
 import { Post } from '../../social feed/posts.entity';
-import { ActivityType } from 'src/social feed/activitywall.entity';
+import { ActivityType } from '../../social feed/activitywall.entity';
 import { ActivityWallService } from '../activities/activitywall.service';
 
 @Injectable()

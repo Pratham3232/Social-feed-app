@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../../social feed/user.entity';
-import { Activity } from 'src/social feed/activitywall.entity';
+import { Activity } from '../../social feed/activitywall.entity';
 import { ActivityWallController } from './activitywall.controller';
 import { ActivityWallService } from './activitywall.service';
 
