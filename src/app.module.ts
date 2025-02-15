@@ -15,6 +15,7 @@ import { BlockModule } from './core/block/block.module';
 import { ActityModule } from './core/activities/activitywall.module';
 import { UserModule } from './users/user.module';
 import { PostModule } from './core/posts/posts.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import { PostModule } from './core/posts/posts.module';
     FollowModule,
     BlockModule,
     ActityModule,
-    UserModule
+    UserModule,
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService],

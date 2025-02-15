@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "../social feed/user.entity";
 import { Repository } from "typeorm";
-import { Activity } from "../social feed/activitywall.entity";
 
 @Injectable()
 export class AdminService{
