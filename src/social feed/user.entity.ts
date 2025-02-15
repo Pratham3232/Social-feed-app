@@ -24,21 +24,39 @@ export class User {
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
   role: UserRole;
 
-  @OneToMany(() => Post, post => post.user)
+  @OneToMany(() => Post, post => post.user, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   posts: Post[];
 
-  @OneToMany(() => Like, like => like.user)
+  @OneToMany(() => Like, like => like.user, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   likes: Like[];
 
-  @OneToMany(() => Follow, follow => follow.follower)
+  @OneToMany(() => Follow, follow => follow.follower, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   followers: Follow[];
 
-  @OneToMany(() => Follow, follow => follow.following)
+  @OneToMany(() => Follow, follow => follow.following, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   following: Follow[];
 
-  @OneToMany(() => Block, block => block.blocker)
+  @OneToMany(() => Block, block => block.blocker, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   blockedUsers: Block[];
 
-  @OneToMany(() => Block, block => block.blocked)
+  @OneToMany(() => Block, block => block.blocked, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   blockedBy: Block[];
 }

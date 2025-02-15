@@ -16,10 +16,10 @@ export enum ActivityType {
     @Column({ type: 'enum', enum: ActivityType })
     type: ActivityType;
   
-    @ManyToOne(() => User)
+    @ManyToOne(() => User, {onDelete: 'CASCADE'})
     actor: User;
   
-    @ManyToOne(() => User, { nullable: true })
+    @ManyToOne(() => User, { nullable: true, onDelete: 'CASCADE' })
     targetUser?: User;
   
     @ManyToOne(() => Post, { nullable: true })

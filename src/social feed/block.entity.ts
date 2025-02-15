@@ -6,9 +6,9 @@ export class Block {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, user => user.blockedUsers)
+  @ManyToOne(() => User, user => user.blockedUsers, {onDelete: 'CASCADE'})
   blocker: User;
 
-  @ManyToOne(() => User, user => user.blockedBy)
+  @ManyToOne(() => User, user => user.blockedBy, {onDelete: 'CASCADE'})
   blocked: User;
 }

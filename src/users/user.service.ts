@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { User } from '../social feed/user.entity';
 import { Post } from '../social feed/posts.entity';
 import { Block } from '../social feed/block.entity';
-import { Like } from '../social feed/like.entity';
 
 @Injectable()
 export class UserService {
