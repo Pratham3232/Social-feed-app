@@ -1,5 +1,5 @@
-import { Post } from "src/social feed/posts.entity";
-import { User } from "src/social feed/user.entity";
+import { Post } from "../social feed/posts.entity";
+import { User } from "../social feed/user.entity";
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 export enum ActivityType {

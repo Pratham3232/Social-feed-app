@@ -1,4 +1,4 @@
-import { User } from "src/social feed/user.entity";
+import { User } from "../social feed/user.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Like } from "./like.entity";
 
